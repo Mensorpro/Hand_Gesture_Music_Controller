@@ -1,0 +1,55 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# Package/build artifacts
+*.egg-info/
+*.egg
+.eggs/
+build/
+dist/
+wheelhouse/
+pip-wheel-metadata/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Tools and analyzers
+.pytest_cache/
+.pyrightcache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Editors/IDEs
+.vscode/
+.idea/
+.history/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Env/config
+.env
+.env.*
+*.local
+
+# App caches
+.cache/
+
+# Project-specific
+.spotify_token_cache
