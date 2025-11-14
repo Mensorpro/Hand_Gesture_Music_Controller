@@ -8,6 +8,7 @@ from pathlib import Path
 import shutil
 
 from PyInstaller.utils.hooks import collect_data_files, collect_dynamic_libs, collect_submodules
+import mediapipe as _mediapipe_pkg
 
 project_root = Path.cwd()
 assets_dir = project_root / "assets"
@@ -44,6 +45,21 @@ mediapipe_datas = [
     for src, dest in collect_data_files("mediapipe")
     if not any(part in EXCLUDED_DATA_DIR_NAMES for part in Path(src).parts)
 ]
+
+# Also include mediapipe 'modules' directory (contains .binarypb model files)
+extra_mediapipe_datas = []
+try:
+    mp_root = Path(_mediapipe_pkg.__file__).parent
+    mp_modules = mp_root / "modules"
+    if mp_modules.exists():
+        for f in mp_modules.rglob("*"):
+            if f.is_file():
+                rel = f.relative_to(mp_root)
+                # place under mediapipe/<relative path> in the bundle
+                extra_mediapipe_datas.append((str(f), str(Path("mediapipe") / rel.parent)))
+except Exception:
+    extra_mediapipe_datas = []
+
 mediapipe_binaries = collect_dynamic_libs("mediapipe")
 mediapipe_hiddenimports = [
     name
@@ -60,7 +76,7 @@ a = Analysis(
     ["hand_music_control.py"],
     pathex=[str(project_root)],
     binaries=mediapipe_binaries + opencv_binaries,
-    datas=mediapipe_datas + app_datas,
+    datas=mediapipe_datas + app_datas + extra_mediapipe_datas,
     hiddenimports=mediapipe_hiddenimports,
     hookspath=[],
     hooksconfig={},
