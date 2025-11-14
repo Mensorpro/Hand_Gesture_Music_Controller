@@ -49,6 +49,7 @@ mediapipe_hiddenimports = [
     name
     for name in collect_submodules("mediapipe")
     if not any(token in name for token in EXCLUDED_HIDDENIMPORT_TOKENS)
+       and "mediapipe.tasks.python.genai" not in name
 ]
 
 opencv_binaries = collect_dynamic_libs("cv2")
@@ -63,8 +64,8 @@ a = Analysis(
     hiddenimports=mediapipe_hiddenimports,
     hookspath=[],
     hooksconfig={},
-    runtime_hooks=[],
-    excludes=EXCLUDED_MODULES,
+    runtime_hooks=[str(project_root / "pyi_run_mediapipe_genai_fix.py")],
+    excludes=EXCLUDED_MODULES + ["mediapipe.tasks.python.genai"],
     win_no_prefer_redirects=False,
     win_private_assemblies=False,
     noarchive=False,

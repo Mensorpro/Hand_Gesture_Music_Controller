@@ -1,7 +1,7 @@
-New-Item -Path "C:\" -Name "temp_build" -ItemType "directory" -ErrorAction SilentlyContinue;
-Copy-Item -Path "c:\Users\Mensor\Desktop\cv\hand_music_control.py" -Destination "C:\temp_build\";
-Copy-Item -Path "c:\Users\Mensor\Desktop\cv\hand_music_control.spec" -Destination "C:\temp_build\";
-Copy-Item -Path "c:\Users\Mensor\Desktop\cv\assets" -Destination "C:\temp_build\" -Recurse;
-Set-Location -Path "C:\temp_build";
+New-Item -Path "C:\" -Name "temp_build2" -ItemType "directory" -ErrorAction SilentlyContinue;
+Copy-Item -Path "c:\Users\Mensor\Desktop\cv\hand_music_control.py" -Destination "C:\temp_build2\";
+Copy-Item -Path "c:\Users\Mensor\Desktop\cv\hand_music_control.spec" -Destination "C:\temp_build2\";
+Copy-Item -Path "c:\Users\Mensor\Desktop\cv\assets" -Destination "C:\temp_build2\" -Recurse;
+Set-Location -Path "C:\temp_build2";
 $env:PATH = "c:\Users\Mensor\Desktop\cv\.venv\Scripts;" + $env:PATH;
 pyinstaller hand_music_control.spec --noconfirm --clean
